@@ -14,6 +14,8 @@ https://hackersploit.org/sitemap_index.xml
 whatweb hackersploit.org
 whois hackersploit.org
 
+https://sitereport.netcraft.com/    #looking details about website
+
 ```
 
 ## (2) Host & Networking Auditing
