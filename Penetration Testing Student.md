@@ -8,6 +8,8 @@ This is a Cheatsheet for eJPT Exam & Course.
 
 ### Assessment Methodologies: Information Gathering
 ```
+host hackersploit.org
+https://hackersploit.org/robots.txt
 
 ```
 ## (2) Host & Networking Auditing
