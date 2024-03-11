@@ -19,6 +19,10 @@ dnsrecon -d hackersploit.org
 https://dnsdumpster.com/
 wafw00f -l  #firewall detection
 wafw00f sliate.ac.lk
+wafw00f sliate.ac.lk -a
+
+sublist3r -d sliate.ac.lk -e google,yahoo,big
+
 
 
 ```
