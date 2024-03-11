@@ -23,8 +23,27 @@ wafw00f sliate.ac.lk -a
 
 sublist3r -d sliate.ac.lk -e google,yahoo,big
 sublist3r -d ine.com
-###
-google dorks
+
+site:ine.com
+site:ine.com inurl:admin
+site:ine.com inurl:forum
+site:*.ine.com
+site:*.ine.com intitle:admin
+site:*.ine.com filetype:pdf
+site:*.ine.com employees
+site:*.ine.com instructors
+intitle:index of
+cache:ine.com
+inurl:auth_user_file.txt
+inurl:passwd.txt
+site:gov.* intitle:"index of" *.css
+https://www.exploit-db.com/google-hacking-database
+https://archive.org/web/ # waybackmachine
+
+Email Harvesting
+----------------
+
+
 
 
 ```
