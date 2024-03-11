@@ -67,6 +67,23 @@ cat /etc/hosts  --> 192.168.8.1 router.admin
 dnsenum zonetransfer.me
 dig axfr@sip.zonetransfer.me zonetransfer.me
 
+ip a s
+sudo nmap -sn 192.168.8.0/24
+sudo netdiscover   -r  192.168.8.0/24
+
+nmap  192.168.8.10        // windows firewall block
+nmap -Pn 192.168.8.10
+nmap -Pn -p- 192.168.8.10
+nmap -Pn -F 192.168.8.10  // fast scan
+nmap -Pn -p1-10000 192.168.8.10
+nmap -Pn -sU 192.168.8.10 // UDP 
+nmap -Pn 192.168.8.10 -v
+nmap -Pn -F 192.168.8.10 -oN nmap_re.txt
+nmap -Pn -T4 -F 192.168.8.10 -oX nmap_re.xml
+
+
+
+
 
 
 
