@@ -4,7 +4,7 @@
 # eJPT-Cheatsheet            
 This is a Cheatsheet for eJPT Exam & Course.
 
-## (1)  Assessment Methodologies
+## (A)  Assessment Methodologies
 
 ### 1. Assessment Methodologies: Information Gathering
 ```
@@ -86,16 +86,16 @@ nmap -Pn -T4 -F 192.168.8.10 -oX nmap_re.xml
 
 ```
 
-## (2) Host & Networking Auditing
+## (B) Host & Networking Auditing
 ```
 
 ```
 
-## (3) Host & Network Penetration Testing
+## (C) Host & Network Penetration Testing
 
 ```
 ```
-## (4) Web Application Penetration Testing
+## (D) Web Application Penetration Testing
 
 ```
 ```
