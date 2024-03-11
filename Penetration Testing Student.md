@@ -5,7 +5,7 @@
 This is a Cheatsheet for eJPT Exam & Course.
 
 ## (1)  Assessment Methodologies
-```sh
+```
 
 ```
 ## fPing
