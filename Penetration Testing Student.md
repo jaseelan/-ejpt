@@ -4,12 +4,9 @@
 # eJPT-Cheatsheet            
 This is a Cheatsheet for eJPT Exam & Course.
 
-## Nmap
+## Assessment Methodologies
 ```sh
-nmap -sn 10.10.10.0/24                             #Host Discover
-nmap -sV -sC 10.10.10.10                           #Best choice for Scanning
-nmap -A 10.10.10.10                                #Too General Scanning
-nmap -p<port> --script=vuln 10.10.10.10            #Vulnerabillity Assessment
+
 ```
 ## fPing
 ```sh
