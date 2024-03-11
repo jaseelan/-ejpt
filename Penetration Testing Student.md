@@ -6,7 +6,7 @@ This is a Cheatsheet for eJPT Exam & Course.
 
 ## (1)  Assessment Methodologies
 
-### Assessment Methodologies: Information Gathering
+### 1. Assessment Methodologies: Information Gathering
 ```
 host hackersploit.org
 https://hackersploit.org/robots.txt
@@ -80,9 +80,9 @@ nmap -Pn -sU 192.168.8.10 // UDP
 nmap -Pn 192.168.8.10 -v
 nmap -Pn -F 192.168.8.10 -oN nmap_re.txt
 nmap -Pn -T4 -F 192.168.8.10 -oX nmap_re.xml
-
-
-
+```
+### 2. Assessment Methodologies: Footprinting & Scanning
+```
 
 ```
 
