@@ -42,6 +42,13 @@ https://archive.org/web/ # waybackmachine
 
 Email Harvesting
 ----------------
+https://github.com/laramies/theHarvester
+theHarvester -d example.com -l 100 -b all
+theHarvester -d example.com -b 100 -b google,yahoo
+have i been pwned?  # password data bridge
+
+
+
 
 
 
