@@ -15,6 +15,11 @@ whatweb hackersploit.org
 whois hackersploit.org
 
 https://sitereport.netcraft.com/    #looking details (website footprinting)
+dnsrecon -d hackersploit.org
+https://dnsdumpster.com/
+ wafw00f -l  #firewall detection
+wafw00f sliate.ac.lk
+
 
 ```
 
