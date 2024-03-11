@@ -12,6 +12,8 @@ host hackersploit.org
 https://hackersploit.org/robots.txt
 https://hackersploit.org/sitemap_index.xml
 whatweb hackersploit.org
+whois hackersploit.org
+
 ```
 
 ## (2) Host & Networking Auditing
