@@ -60,6 +60,15 @@ SOA -Domain authority
 SRV - Service records
 PTR - Resolves an IP address to a hostname
 
+dnsrecon -d sliate.ac.lk
+dnsrecon -d zonetransfer.me
+dnsenum --help
+cat /etc/hosts  --> 192.168.8.1 router.admin
+dnsenum zonetransfer.me
+dig axfr@sip.zonetransfer.me zonetransfer.me
+
+
+
 
 
 
