@@ -47,6 +47,19 @@ theHarvester -d example.com -l 100 -b all
 theHarvester -d example.com -b 100 -b google,yahoo
 have i been pwned?  # password data bridge
 
+DNS
+---
+A - Resolves a hostname or domain to an IPV4 address
+AAAA - Resolves a hostname or domain to an IPv6 address
+NS - Reference to the domains nameserver
+MX - Resolves a domain to a mail server
+CNAME - Used for domain aliases
+TXT - Text record
+HINFO -Host information
+SOA -Domain authority
+SRV - Service records
+PTR - Resolves an IP address to a hostname
+
 
 
 
