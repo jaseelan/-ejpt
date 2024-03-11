@@ -8,7 +8,7 @@ This is a Cheatsheet for eJPT Exam & Course.
 ```
 
 ```
-## fPing
+## (2) Host & Networking Auditing
 ```sh
 fping -a -g 10.10.10.0/24 2>/dev/null              #Host Discover
 ``` 
