@@ -22,7 +22,7 @@ wafw00f sliate.ac.lk
 wafw00f sliate.ac.lk -a
 
 sublist3r -d sliate.ac.lk -e google,yahoo,big
-
+sublist3r -d ine.com 
 
 
 ```
