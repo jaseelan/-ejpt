@@ -97,6 +97,7 @@ fping -h
 fping -a -g 10.10.23.0/24 2>/dev/null
 nmap -Pn 10.10.24.111
 nmap -sn 10.10.24.111
+$${\color{red}Red}$$
 
 
 
