@@ -87,6 +87,19 @@ netstat -antp // for linux
 netstat -ano // for windows
 ipcalc -v 192.168.8.134
 
+ping -c 5 10.10.34.111 // for linux
+ping -n 5 10.10.34.111 // for windows
+ping -b -c 5 10.10.34.0 // broadcast
+
+fping -a -g 10.10.23.0/24
+fping -h
+fping -a -g 10.10.23.0/24 2>/dev/null
+nmap -Pn 10.10.24.111
+nmap -sn 10.10.24.111
+
+
+
+
 ```
 
 ## (B) Host & Networking Auditing
