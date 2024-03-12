@@ -83,6 +83,8 @@ nmap -Pn -T4 -F 192.168.8.10 -oX nmap_re.xml
 ```
 ### 2. Assessment Methodologies: Footprinting & Scanning
 ```
+netstat -antp // for linux
+netstat -ano // for windows
 
 ```
 
