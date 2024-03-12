@@ -97,7 +97,18 @@ fping -h
 fping -a -g 10.10.23.0/24 2>/dev/null
 nmap -Pn 10.10.24.111
 nmap -sn 10.10.24.111
-$${\color{red}Red}$$
+
+Host Discovery with Nmap
+.......................
+nmap -sn 192.168.1.1
+nmap -h
+/-sn
+nmap -sn 10.10.1.0-254
+nmap -sn 10.10.1.0/24
+sudo wireshark -i eth1
+nmap -sn 10.10.1.0/24 --send-ip
+
+
 
 
 
