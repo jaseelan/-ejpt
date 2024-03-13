@@ -108,6 +108,21 @@ nmap -sn 10.10.1.0/24
 sudo wireshark -i eth1
 nmap -sn 10.10.1.0/24 --send-ip
 
+nmap -sn 10.4.23.227 10.10.34.54
+nmap -sn 10.4.23.227-240
+nmap -sn -iL target.txt
+nmap -sn -PS 10.10.34.32 (syn/ack response)
+nmap -sn -PS1-10000 10.10.34.32 #port 
+nmap -sn -PS3389 10.10.34.2
+nmap -PS80,3389,445 10.23.45.21
+
+nmap -sn -PA 10.10.34.54 #ACK
+nmap -sn -PA1-1000- 10.10.34.43
+nmap -sn -PE 10.10.34.32 --send -ip #ICMP
+nmap -sn -v -T4 10.10.23.43
+nmap -sn -PS21,25,80,445,3389,8080 -T4 10.10.45.32
+nmap -sn -PS21,25,80,445,3389,8080 -PU137,138-T4 10.10.45.32
+
 
 
 
