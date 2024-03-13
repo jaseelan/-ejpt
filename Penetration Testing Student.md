@@ -122,6 +122,15 @@ nmap -sn -PE 10.10.34.32 --send -ip #ICMP
 nmap -sn -v -T4 10.10.23.43
 nmap -sn -PS21,25,80,445,3389,8080 -T4 10.10.45.32
 nmap -sn -PS21,25,80,445,3389,8080 -PU137,138-T4 10.10.45.32
+----------------------------------------------------------------
+
+nmap -Pn -sV -p80 10.10.23.3
+nmap -Pn -F 10.10.23.3
+nmap -F 127.0.0.1  #firewall local system
+nmap -T4 -Pn -sS -F 10.10.23.3 # without root user
+nmap -Pn -sT 10.10.23.3 
+
+
 
 
 
