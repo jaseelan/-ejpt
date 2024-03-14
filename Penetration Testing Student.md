@@ -168,6 +168,22 @@ nmap -Ps -sS -sV -p80,445,3389 -F -f --mtu 8 10.10.32.32
 nmap -Pn -sS -sV -p445,3389 -f --data-length 200 -D 10.10.32.1 ,10.10.23.2 10.32.45.4    // spoof ip addre
 nma -Pn -sS -sV -p445,3389 -f --data-length 200 -g 53 -D 10.10.2.1,10.32.45.4 10.34.2.45 //53 port comming from
 
+------------------------------------------------------------------------------------------------------------------------------
+
+nmap -Pn -sS -F --host-timeout 5s 10.10.34.0/24
+nmap -sS -sP -f --scan-delay 5s  10.10.34.0/24
+nmap -sS -T1 -sP -f --scan-delay 5s  10.10.34.0/24
+------------------------------------------------------------------------------------------------------------------------------
+
+service postgresql start && msfconsole
+workspace -h
+workspace -a pentest
+db_status
+db_import nmap_xml.xml
+hosts
+services
+db_nmap -Pn -sS -sS -O -p445 10.10.19.132
+
 
 
 
