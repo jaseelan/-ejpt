@@ -139,6 +139,22 @@ nmap -T4 -sS -sV -O --osscan-guess -p- 192.168.214.3
 nmap -T4 -sS -sV -O -- version-intensity 8 -O --osscan-guess -p- 192.168.214.3
 
 
+ls -al /usr/share/nmap/scripts/ | grep -e "ftp"
+ls -al /usr/share/nmap/scripts/
+ls -al /usr/share/nmap/scripts/ | grep -e "http"
+ls -al /usr/share/nmap/scripts/ | grep -e "mongodb"
+nmap --script-help=mongodb-databases
+nmap --script-help=mongodb-info
+nmap -sS -sV --script=mongodb-info -p- -T4 10.10.23.3
+nmap --script-help=memcached-info
+nmap -sS -sV --script=memcached-info,ftp-anon -p- -T4 192.224.77.3
+nmap -sS -sV --script=ftp-anon -p55413 -T4 192.224.77.3
+nmap -sS -sV --script=ftp-* -p55413 -T4 192.168.77.3
+nmap -sS -sV --script=ftp-syst -p- -T4 192.224.77.3
+nmap -sS -A -p- -T4 10.20.4.32
+nmap -sS -sV --script=mongodb-info -p- -T4 10.2.43.2
+
+
 
 
 
