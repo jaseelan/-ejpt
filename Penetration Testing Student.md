@@ -128,7 +128,15 @@ nmap -Pn -sV -p80 10.10.23.3
 nmap -Pn -F 10.10.23.3
 nmap -F 127.0.0.1  #firewall local system
 nmap -T4 -Pn -sS -F 10.10.23.3 # without root user
-nmap -Pn -sT 10.10.23.3 
+nmap -Pn -sT 10.10.23.3
+
+nmap -sn 192.168.214.0/24  // find target
+nmap -sS 192.168.214.3nmap -sn 192.168.214.04 
+ip a s
+nmap -T4 -sS -p- 192.168.214.3
+nmap -T4 -sS -sV -O -p- 192.168.214.3
+nmap -T4 -sS -sV -O --osscan-guess -p- 192.168.214.3
+nmap -T4 -sS -sV -O -- version-intensity 8 -O --osscan-guess -p- 192.168.214.3
 
 
 
