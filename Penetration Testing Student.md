@@ -154,6 +154,21 @@ nmap -sS -sV --script=ftp-syst -p- -T4 192.224.77.3
 nmap -sS -A -p- -T4 10.20.4.32
 nmap -sS -sV --script=mongodb-info -p- -T4 10.2.43.2
 
+-----------------------------------------------------------
+
+nmap -sn 10.10.34.4
+nmap -Pn -sS -F 10.20.21.2
+nmap -Pn -sA -p445,3389 10.20.21.2
+
+note-->
+nmap -h firewall/ids evasion and spoofing
+nmap -Ps -sS -sV -F 10.10.32.32
+nmap -Ps -sS -sV -p80,445,3389 -F -f 10.10.32.32 // fragment
+nmap -Ps -sS -sV -p80,445,3389 -F -f --mtu 8 10.10.32.32
+nmap -Pn -sS -sV -p445,3389 -f --data-length 200 -D 10.10.32.1 ,10.10.23.2 10.32.45.4    // spoof ip addre
+nma -Pn -sS -sV -p445,3389 -f --data-length 200 -g 53 -D 10.10.2.1,10.32.45.4 10.34.2.45 //53 port comming from
+
+
 
 
 
