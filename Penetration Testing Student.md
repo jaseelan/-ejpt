@@ -187,8 +187,9 @@ db_nmap -Pn -sS -sS -O -p445 10.10.19.132
 
 ### 3. Assessment Methodologies: Enumeration
 ```
-
-
+nmap -T4 10.10.30.0/20 --open
+net use Z: \\10.0.26.208\C$ smbserver_771 /user:administrator
+net use * /delete //deleting 
 
 
 
