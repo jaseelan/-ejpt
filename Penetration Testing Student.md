@@ -189,7 +189,41 @@ db_nmap -Pn -sS -sS -O -p445 10.10.19.132
 ```
 nmap -T4 10.10.30.0/20 --open
 net use Z: \\10.0.26.208\C$ smbserver_771 /user:administrator
+net use * /delete //deleting
+
+nmap -T4 10.10.30.0/20 --open
 net use * /delete //deleting 
+
+net use Z: \\10.0.26.208\C$ smbserver_771 /user:administrator
+
+smb
+---
+nmap -p445 --script smb-protocols 10.10.32.2
+nmap -p445 --script smb-security-mode 10.10.32.2
+nmap -p445 --script smb-enum-sessions 10.10.32.2
+nmap -p445 --script smb-enum-sessions --script-args 10.10.32.2
+nmap -p445 --script smb-enum-sessions --script-args smbusername=administrator,smbpassword=smbserver_771 10.10.32.2
+
+nmap -p445 --script smb-enum-shares 10.10.32.2 
+\\10.10.32.43\IPC
+nmap -p445 --script smb-enum-shares --script-args smbusername=administrator,smbpassword=smbusers_771 10.10.32.45
+nmap -p445 --script smb-enum-users --script-args smbusername=administrator,smbpassword=smbserver_771 10.10.32.45
+nmap -p445 --script smb-server-stats --script-args smbusername=administrator,smbpassword=smbserver_771 10.10.32.45
+
+nmap -p445 --script smb-enum-domain --script-args smbusername=administrator,smbpassword=smbserver_771 10.10.32.45
+
+nmap -p445 --script smb-enum-groups --script-args smbusername=administrator,smbpassword=smbserver_771 10.10.32.45
+
+nmap -p445 --script smb-enum-services --script-args smbusername=administrator,smbpassword=smbserver_771 10.10.32.45
+
+nmap -p445 --script smb-enum-share,smb-ls --script-args smbusername=administrator,smbpassword=smbserver_771 10.10.32.45
+
+
+
+
+
+
+
 
 
 
