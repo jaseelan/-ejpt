@@ -232,6 +232,28 @@ touch backdoor
 smbmap -H 10.4.26.58 -u Administrator -p 'smbserver_771' --upload '/root/backdoor' 'c$\backdoor' //upload file
 smbmap -H 10.4.26.58 -u Administrator -p 'smbserver_771' --download 'c$\flag.txt' //download file
 
+ip a
+nmap -sV -p139,445 192.168.43.3
+nmap -sU --top-port 25 --open 192.168.43.3
+nmap -sV -p445 --script smb-os-discovery 192.168.43.3
+
+msfconsole
+use auxiliary/scanner/smb/smb_version
+show options
+set RHOSTS 192.168.43.3
+options
+exploit
+exit
+
+nmblookup -h
+nmblookup -A 192.168.43.3
+smbclient -h
+smbclient -L 192.168.34.3 -N //null sessions
+rpcclient -h
+rpcclient -U "" -N 192.168.34.3
+?
+
+
 
 
 
