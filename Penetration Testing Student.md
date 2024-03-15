@@ -253,6 +253,26 @@ rpcclient -h
 rpcclient -U "" -N 192.168.34.3
 ?
 
+rpcclient -U "" -N 192.168.32.3
+srvinfo //server info
+enum4linux -h
+enum4linux -o 192.168.32.3
+smbclient -L 192.168.32.3 -N
+
+nmap -p 445 --script smb-protocls 192.168.32.3
+
+msfconsole
+use auxiliary/scanner/smb/smb2
+set RHOST 192.168.32.3 
+options
+run
+
+nmap -p445 --script smb-enum-users 192.168.32.3 
+enum4linux -U 192.168.32.3 
+rpcclient -U "" -N 192.168.32.3 
+enumdomusers
+lookupnames admin
+
 
 
 
