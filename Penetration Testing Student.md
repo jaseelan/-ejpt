@@ -183,8 +183,10 @@ db_import nmap_xml.xml
 hosts
 services
 db_nmap -Pn -sS -sS -O -p445 10.10.19.132
+```
 
 ### 3. Assessment Methodologies: Enumeration
+```
 
 
 
