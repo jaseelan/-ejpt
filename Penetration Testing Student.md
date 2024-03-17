@@ -382,6 +382,48 @@ run
 exit
 ssh root@192.168.23.3
 ls /
+------------------------------------------------------------------------------------------------------------------------------
+HTTP
+whatweb 10.4.19.11
+dirb http://10.4.19.11
+http 10.4.19.11
+browsh --startup-url http://10.4.19.11/default.aspx
+
+nmap 10.4.19.11 -p80 --script http-enum
+nmap 10.4.19.11 -p80 --script http-headers
+nmap 10.4.19.11 -p80 --script http-methods --script-args http-methods url-path=/webdav/
+nmap 10.4.19.11 -p80 --script http-webdev-scan --script-args http-methods.url-path=/webdev/
+
+nmap 10.4.19.11-sV -p80 --script http-enum
+nmap 10.4.19.11-sV -p80 --script http-headers
+nmap 10.4.19.11-sV -p80 --script http-methods --script-args http-methods-url-path=/webdav/
+nmap 10.4.19.11-sV -p80 --script http-webdev-scan --script-args http-methods url-path=/webdav/
+
+http Apache
+
+nmap 10.4.19.11-sV -p80 --script banner
+msfconsole
+use auxiliary/scanner/http/http-version
+set RHOSTS 10.10.32.3
+option
+run
+
+curl 10.4.19.11 | more
+wget "http://10.10.32.3/index" //web files
+browsh --startup-url 10.4.19.11
+lynx http://10.10.32.3
+
+
+msfconsole
+use auxiliary/scanner/http/brute_dirs
+show options
+set RHOSTS 10.23.2.3
+options
+run
+
+
+curl http://192.168.43.2/cgi-bin/ | more  // cgi-bin need to find msfconsole the file name might be diffrent
+
 
 
 
