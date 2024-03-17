@@ -524,6 +524,8 @@ run
 
 use auxiliary/scanner/admin/mssql/mssql_enum_domain_accounts
 run
+
+
 ```
 
 ### 4. Assessment Methodologies: Vulnerability Assessment
