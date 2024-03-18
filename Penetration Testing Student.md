@@ -547,46 +547,6 @@ show options
 run
 systeminfo
 
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
 ## (B) Host & Networking Auditing
