@@ -561,4 +561,36 @@ systeminfo
 ## (D) Web Application Penetration Testing
 
 ```
+Web Application Penetration Testin
+----------------------------------
+dirb http://192.240.52.3
+curl -X GET 192.240.52.3
+curl -l 192.240.52.3
+curl -I  192.240.52.3
+curl -X OPTIONS 192.240.52.3 -v
+curl -X POST 192.240.52.3
+curl -X POST 192.240.52.3
+curl -X OPTIONS 192.240.52.3/login.php -v
+curl -X POST 192.240.52.3/login.php -v
+curl  POST 192.240.52.3/login.php -d "name=john&password=password" -v
+curl -X OPTIONS 192.240.52.3/post.php -v
+curl -X POST 192.240.52.3/post.php -v
+http://192.240.52.3/uploads/
+curl -X OPTIONS 192.240.52.3/uploads -v 
+curl -X OPTIONS 192.240.52.3/uploads/ -v
+curl 192.240.52.3/uploads/ --upload-file Astro
+curl -X DELETE 192.240.52.3/uploads/ Astro
+gobuster dir -u http://192.130.37.3 -w /usr/share/wordlists/dirb/common.txt -b 403,404
+gobuster dir -u http://192.130.37.3 -w /usr/share/wordlists/dirb/common.txt -b 403,404 -x .php,.xml,.txt -r
+gobuster dir -u http://192.130.37.3/data -w /usr/share/wordlists/dirb/common.txt -b 403,404 -x .php,.xml,.txt -r
+
+nikto -h http://192.101.39.3/index.php?page=arbitrary-file-inclusion.php -Tuning 5 -Display v
+
+
+
+
+
+
+
+
 ```
