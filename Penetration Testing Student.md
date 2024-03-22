@@ -554,9 +554,14 @@ systeminfo
 
 ```
 
+
 ## (C) Host & Network Penetration Testing
 
 ```
+```
+### Host & Network Penetration Testing: System/Host Based Attacks
+```
+
 ```
 ## (D) Web Application Penetration Testing
 
